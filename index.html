@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Query JetStream operating data and download your results.">
+  <title>JetStream SQL Workspace</title>
+  <link rel="icon" href="./mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./core.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#query">Skip to SQL query</a>
+  <header>
+    <div class="brand"><img src="./mark.svg" alt="" width="40" height="40"><div><p class="eyebrow">JetStream Airlines</p><h1>SQL Workspace</h1></div></div>
+    <span class="dataset-count" id="dataset-count">Loading database…</span>
+  </header>
+  <main>
+    <aside aria-labelledby="database-heading">
+      <div class="section-heading"><h2 id="database-heading">Database</h2><button type="button" id="copy-schema">Copy schema</button></div>
+      <p class="table-name">Daily_Operations</p>
+      <p class="muted">One operating day per row.</p>
+      <dl class="fields">
+        <div><dt><code>Weather_Severity</code><span>INTEGER</span></dt><dd>Weather severity score from 1 to 10.</dd></div>
+        <div><dt><code>Crew_Reserve_Pct</code><span>REAL</span></dt><dd>Crew reserve percentage. A value of 8 means 8%.</dd></div>
+        <div><dt><code>System_Latency_Sec</code><span>REAL</span></dt><dd>Scheduling system response delay in seconds.</dd></div>
+        <div><dt><code>Network_Collapse</code><span>INTEGER</span></dt><dd>1 = collapse<br>0 = normal operations</dd></div>
+      </dl>
+      <p class="dialect">SQL dialect <strong>SQLite</strong></p>
+      <p class="feedback" id="schema-feedback" role="status"></p>
+    </aside>
+    <div class="work-area">
+      <section class="query-panel" aria-labelledby="query-heading">
+        <div class="section-heading"><h2 id="query-heading">SQL query</h2><span class="keyboard-hint">⌘ / Ctrl + Enter to run</span></div>
+        <label class="sr-only" for="query">SQL query</label>
+        <textarea id="query" rows="9" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="Enter your SQL query…" aria-describedby="query-help"></textarea>
+        <div class="query-controls"><div class="buttons"><button class="primary" type="button" id="run" disabled>Run query</button><button type="button" id="clear">Clear</button></div><span class="muted" id="query-help">One SELECT or WITH query.</span></div>
+        <p class="query-status" id="query-status" role="status" aria-live="polite">Loading database…</p>
+      </section>
+      <section class="results-panel" aria-labelledby="results-heading">
+        <div class="section-heading results-heading"><div><h2 id="results-heading">Results</h2><p class="muted" id="result-count">Run a query to view results.</p></div><button type="button" id="download" disabled>Download CSV</button></div>
+        <p id="stale" class="stale" hidden>Query changed. Run it to update the results.</p>
+        <div id="results" class="table-region" tabindex="0" role="region" aria-label="Query results"><p class="empty">Your query results will appear here.</p></div>
+        <div class="pagination" id="pagination" hidden><button type="button" id="previous">Previous</button><span id="page-label"></span><button type="button" id="next">Next</button></div>
+      </section>
+      <details class="data-panel" id="data-panel"><summary>View source data</summary><div id="source" class="table-region source-region" tabindex="0" role="region" aria-label="Source data"></div></details>
+    </div>
+  </main>
+</body>
+</html>
